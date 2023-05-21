@@ -22,7 +22,7 @@ namespace ZooBitatApi.Controllers
         [EnableCors("CorsPolicy")]
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
-            var usuarios = _context.Usuarios.ToList();
+            var usuarios = _context.Usuarios.Include(h=>h.Rol).ToList();
 
             return Ok(usuarios);
         }
@@ -32,7 +32,7 @@ namespace ZooBitatApi.Controllers
         [EnableCors("CorsPolicy")]
         public ActionResult<Usuario> GetUsuarioById(int id)
         {
-            var usuario = _context.Usuarios.Find(id);
+            var usuario = _context.Usuarios.Include(h=>h.Rol).FirstOrDefaultAsync(h=>h.IdUsuario==id);
 
             if (usuario == null)
             {
