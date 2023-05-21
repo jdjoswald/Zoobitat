@@ -11,7 +11,7 @@ namespace ZooBitatApi.Models
         [Required]
         public string Email { get; set; }
         [Required]
-        public string Contraseña { get; set; }
+        public string Contrasenna { get; set; }
         [Required]
         public string Nombre { get; set; }
         [Required]

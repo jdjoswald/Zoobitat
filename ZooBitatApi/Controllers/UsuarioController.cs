@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using System.Security.Cryptography;
+using System.Text;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,13 +58,31 @@ namespace ZooBitatApi.Controllers
                 return NotFound("El rol especificado no existe.");
             }
 
+            // Encriptar la contraseña antes de guardarla
+            usuario.Contrasenna = EncriptarContraseña(usuario.Contrasenna);
+
             // Asignar el rol al usuario
             usuario.Rol = rol;
+            usuario.asignaciones = new List<Asignacion>();
 
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetUsuarioById), new { id = usuario.IdUsuario }, usuario);
+        }
+
+        private string EncriptarContraseña(string contraseña)
+        {
+            // Aquí puedes utilizar un algoritmo de hash seguro, como bcrypt o PBKDF2
+            // Asegúrate de incluir la lógica de encriptación adecuada, como salting y stretching
+
+            // Ejemplo de encriptación simple utilizando SHA256
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(contraseña);
+                byte[] hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
         }
 
         // PUT: api/Usuario/5
