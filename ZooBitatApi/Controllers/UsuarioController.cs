@@ -118,5 +118,117 @@ namespace ZooBitatApi.Controllers
 
             return NoContent();
         }
+
+
+        // POST: api/Usuario/Login
+        [HttpPost("Login")]
+        [EnableCors("CorsPolicy")]
+        public IActionResult Login(Usuario usuarioLogin)
+        {
+            // Buscar el usuario en la base de datos por nombre de usuario
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioLogin.Email);
+
+            if (usuario == null)
+            {
+                // Si el usuario no existe, puedes manejar el error o devolver una respuesta de error
+                return NotFound("Nombre de usuario incorrecto");
+            }
+
+            // Verificar la contraseña encriptada
+            if (!VerificarContraseña(usuarioLogin.Contrasenna, usuario.Contrasenna))
+            {
+                // Si la contraseña no coincide, puedes manejar el error o devolver una respuesta de error
+                return Unauthorized("Contraseña incorrecta");
+            }
+
+            // Devolver una respuesta exitosa con los datos del usuario
+            return Ok(usuario);
+        }
+
+        private bool VerificarContraseña(string contraseña, string contraseñaEncriptada)
+        {
+            // Aquí debes implementar la lógica para verificar la contraseña encriptada con la contraseña proporcionada
+            // Puedes utilizar el mismo algoritmo de encriptación utilizado en el método EncriptarContraseña
+
+            // Por ejemplo, utilizando SHA256
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(contraseña);
+                byte[] hash = sha256.ComputeHash(bytes);
+                string contraseñaEncriptadaInput = Convert.ToBase64String(hash);
+                return contraseñaEncriptada == contraseñaEncriptadaInput;
+            }
+        }
+
+
+
+        /* // POST: api/Usuario/Login
+         [HttpPost("Login")]
+         [EnableCors("CorsPolicy")]
+         public IActionResult Login(UsuarioLogin usuarioLogin)
+         {
+             // Buscar el usuario en la base de datos por nombre de usuario
+             var usuario = _context.Usuarios.Include(h => h.Rol)
+                                            .FirstOrDefault(u => u.NombreUsuario == usuarioLogin.NombreUsuario);
+
+             if (usuario == null)
+             {
+                 // Si el usuario no existe, puedes manejar el error o devolver una respuesta de error
+                 return NotFound("Nombre de usuario incorrecto");
+             }
+
+             // Verificar la contraseña encriptada
+             if (!VerificarContraseña(usuarioLogin.Contrasenna, usuario.Contrasenna))
+             {
+                 // Si la contraseña no coincide, puedes manejar el error o devolver una respuesta de error
+                 return Unauthorized("Contraseña incorrecta");
+             }
+
+             // Aquí puedes generar un token de autenticación utilizando tu método preferido
+             // Por ejemplo, puedes utilizar JSON Web Tokens (JWT) para generar un token seguro y firmado
+
+             // Devolver una respuesta exitosa con el token de autenticación
+             var token = GenerateToken(usuario.IdUsuario, usuario.NombreUsuario, usuario.Rol.Nombre);
+             return Ok(new { token });
+         }
+
+         private bool VerificarContraseña(string contraseña, string contraseñaEncriptada)
+         {
+             // Aquí debes implementar la lógica para verificar la contraseña encriptada con la contraseña proporcionada
+             // Puedes utilizar el mismo algoritmo de encriptación utilizado en el método EncriptarContraseña
+
+             // Por ejemplo, utilizando SHA256
+             using (SHA256 sha256 = SHA256.Create())
+             {
+                 byte[] bytes = Encoding.UTF8.GetBytes(contraseña);
+                 byte[] hash = sha256.ComputeHash(bytes);
+                 string contraseñaEncriptadaInput = Convert.ToBase64String(hash);
+                 return contraseñaEncriptada == contraseñaEncriptadaInput;
+             }
+         }
+
+         private string GenerateToken(int userId, string username, string role)
+         {
+             // Aquí debes implementar la generación de un token de autenticación válido
+             // Puedes utilizar una biblioteca como System.IdentityModel.Tokens.Jwt para generar y firmar el token
+
+             // Por ejemplo:
+             var tokenHandler = new JwtSecurityTokenHandler();
+             var key = Encoding.ASCII.GetBytes("TuClaveSecreta"); // Reemplaza "TuClaveSecreta" con tu propia clave secreta
+             var tokenDescriptor = new SecurityTokenDescriptor
+             {
+                 Subject = new ClaimsIdentity(new[]
+                 {
+             new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+             new Claim(ClaimTypes.Name, username),
+             new Claim(ClaimTypes.Role, role)
+         }),
+                 Expires = DateTime.UtcNow.AddDays(7), // Establece la fecha de vencimiento del token
+                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+             };
+             var token = tokenHandler.CreateToken(tokenDescriptor);
+             return tokenHandler.WriteToken(token);
+         }*/
+
     }
 }
