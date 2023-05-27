@@ -11,8 +11,8 @@ using ZooBitatApi;
 namespace ZooBitatApi.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20230527164925_default_data_v2")]
-    partial class default_data_v2
+    [Migration("20230527183718_v0.4.2")]
+    partial class v042
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,7 +80,53 @@ namespace ZooBitatApi.Migrations
 
                     b.HasIndex("UsuarioIdUsuario");
 
-                    b.ToTable("Asignacion");
+                    b.ToTable("Asignaciones");
+
+                    b.HasData(
+                        new
+                        {
+                            IdAsignacion = 1,
+                            Nombre = "Dar de comer"
+                        },
+                        new
+                        {
+                            IdAsignacion = 2,
+                            Nombre = "Cambiar de habitat"
+                        });
+                });
+
+            modelBuilder.Entity("ZooBitatApi.Models.AsignacionseUsuarios", b =>
+                {
+                    b.Property<int>("IdAsignacionUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IdAnimal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdAsignacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEstadoAsignacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdAsignacionUsuario");
+
+                    b.HasIndex("IdAnimal");
+
+                    b.HasIndex("IdAsignacion");
+
+                    b.HasIndex("IdEstadoAsignacion");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("AsignacionesUsuarios");
                 });
 
             modelBuilder.Entity("ZooBitatApi.Models.Comentario", b =>
@@ -210,6 +256,18 @@ namespace ZooBitatApi.Migrations
                     b.HasKey("IdEstadoAsignacion");
 
                     b.ToTable("EstadosAsignacion");
+
+                    b.HasData(
+                        new
+                        {
+                            IdEstadoAsignacion = 1,
+                            Nombre = "activo"
+                        },
+                        new
+                        {
+                            IdEstadoAsignacion = 2,
+                            Nombre = "Realizada"
+                        });
                 });
 
             modelBuilder.Entity("ZooBitatApi.Models.EstadoIncidencia", b =>
@@ -403,6 +461,11 @@ namespace ZooBitatApi.Migrations
                         {
                             IdRol = 4,
                             Nombre = "Visitante"
+                        },
+                        new
+                        {
+                            IdRol = 5,
+                            Nombre = "Inactivo"
                         });
                 });
 
@@ -512,6 +575,41 @@ namespace ZooBitatApi.Migrations
                     b.HasOne("ZooBitatApi.Models.Usuario", null)
                         .WithMany("asignaciones")
                         .HasForeignKey("UsuarioIdUsuario");
+                });
+
+            modelBuilder.Entity("ZooBitatApi.Models.AsignacionseUsuarios", b =>
+                {
+                    b.HasOne("ZooBitatApi.Models.Animal", "Animal")
+                        .WithMany()
+                        .HasForeignKey("IdAnimal")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZooBitatApi.Models.Asignacion", "Asignacion")
+                        .WithMany()
+                        .HasForeignKey("IdAsignacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZooBitatApi.Models.EstadoAsignacion", "EstadoAsignacion")
+                        .WithMany()
+                        .HasForeignKey("IdEstadoAsignacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZooBitatApi.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Animal");
+
+                    b.Navigation("Asignacion");
+
+                    b.Navigation("EstadoAsignacion");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ZooBitatApi.Models.Habitat", b =>

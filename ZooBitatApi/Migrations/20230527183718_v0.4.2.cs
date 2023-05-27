@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,11 +9,405 @@
 namespace ZooBitatApi.Migrations
 {
     /// <inheritdoc />
-    public partial class default_data : Migration
+    public partial class v042 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Comentarios",
+                columns: table => new
+                {
+                    IdComentario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Correo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ComentarioText = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Estado = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comentarios", x => x.IdComentario);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Especies",
+                columns: table => new
+                {
+                    IdEspecie = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Informacion = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Icono = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Especies", x => x.IdEspecie);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Estados",
+                columns: table => new
+                {
+                    IdEstado = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estados", x => x.IdEstado);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "EstadosAsignacion",
+                columns: table => new
+                {
+                    IdEstadoAsignacion = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstadosAsignacion", x => x.IdEstadoAsignacion);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "EstadosIncidencia",
+                columns: table => new
+                {
+                    IdEstadoIncidencia = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstadosIncidencia", x => x.IdEstadoIncidencia);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    IdRol = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.IdRol);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TiposHabitat",
+                columns: table => new
+                {
+                    IdTipoHabitat = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TiposHabitat", x => x.IdTipoHabitat);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    IdUsuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Contrasenna = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Apellido = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IdRol = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.IdUsuario);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Roles_IdRol",
+                        column: x => x.IdRol,
+                        principalTable: "Roles",
+                        principalColumn: "IdRol",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Habitats",
+                columns: table => new
+                {
+                    IdHabitat = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IdTipoHabitat = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Habitats", x => x.IdHabitat);
+                    table.ForeignKey(
+                        name: "FK_Habitats_TiposHabitat_IdTipoHabitat",
+                        column: x => x.IdTipoHabitat,
+                        principalTable: "TiposHabitat",
+                        principalColumn: "IdTipoHabitat",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Asignaciones",
+                columns: table => new
+                {
+                    IdAsignacion = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UsuarioIdUsuario = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Asignaciones", x => x.IdAsignacion);
+                    table.ForeignKey(
+                        name: "FK_Asignaciones_Usuarios_UsuarioIdUsuario",
+                        column: x => x.UsuarioIdUsuario,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Noticias",
+                columns: table => new
+                {
+                    IdNotica = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Titulo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Imagen = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Cuerpo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Noticias", x => x.IdNotica);
+                    table.ForeignKey(
+                        name: "FK_Noticias_Usuarios_IdUsuario",
+                        column: x => x.IdUsuario,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Animales",
+                columns: table => new
+                {
+                    IdAnimal = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IdEspecie = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IdEstado = table.Column<int>(type: "int", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    IdHabitat = table.Column<int>(type: "int", nullable: false),
+                    Informacion = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Imagen = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Animales", x => x.IdAnimal);
+                    table.ForeignKey(
+                        name: "FK_Animales_Especies_IdEspecie",
+                        column: x => x.IdEspecie,
+                        principalTable: "Especies",
+                        principalColumn: "IdEspecie",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Animales_Estados_IdEstado",
+                        column: x => x.IdEstado,
+                        principalTable: "Estados",
+                        principalColumn: "IdEstado",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Animales_Habitats_IdHabitat",
+                        column: x => x.IdHabitat,
+                        principalTable: "Habitats",
+                        principalColumn: "IdHabitat",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AsignacionesUsuarios",
+                columns: table => new
+                {
+                    IdAsignacionUsuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    IdAnimal = table.Column<int>(type: "int", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    IdEstadoAsignacion = table.Column<int>(type: "int", nullable: false),
+                    IdAsignacion = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AsignacionesUsuarios", x => x.IdAsignacionUsuario);
+                    table.ForeignKey(
+                        name: "FK_AsignacionesUsuarios_Animales_IdAnimal",
+                        column: x => x.IdAnimal,
+                        principalTable: "Animales",
+                        principalColumn: "IdAnimal",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AsignacionesUsuarios_Asignaciones_IdAsignacion",
+                        column: x => x.IdAsignacion,
+                        principalTable: "Asignaciones",
+                        principalColumn: "IdAsignacion",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AsignacionesUsuarios_EstadosAsignacion_IdEstadoAsignacion",
+                        column: x => x.IdEstadoAsignacion,
+                        principalTable: "EstadosAsignacion",
+                        principalColumn: "IdEstadoAsignacion",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AsignacionesUsuarios_Usuarios_IdUsuario",
+                        column: x => x.IdUsuario,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "HistorialesEstado",
+                columns: table => new
+                {
+                    IdHistorialEstado = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IdEstado = table.Column<int>(type: "int", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    IdAnimal = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistorialesEstado", x => x.IdHistorialEstado);
+                    table.ForeignKey(
+                        name: "FK_HistorialesEstado_Animales_IdAnimal",
+                        column: x => x.IdAnimal,
+                        principalTable: "Animales",
+                        principalColumn: "IdAnimal",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HistorialesEstado_Estados_IdEstado",
+                        column: x => x.IdEstado,
+                        principalTable: "Estados",
+                        principalColumn: "IdEstado",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "HistorialesHabitat",
+                columns: table => new
+                {
+                    IdHistorialHabitat = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Fecha = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    IdAnimal = table.Column<int>(type: "int", nullable: false),
+                    Notas = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistorialesHabitat", x => x.IdHistorialHabitat);
+                    table.ForeignKey(
+                        name: "FK_HistorialesHabitat_Animales_IdAnimal",
+                        column: x => x.IdAnimal,
+                        principalTable: "Animales",
+                        principalColumn: "IdAnimal",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Incidencias",
+                columns: table => new
+                {
+                    IdIncidencia = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IdAnimal = table.Column<int>(type: "int", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    FechaFinalizacion = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    IdUsuarioMandante = table.Column<int>(type: "int", nullable: false),
+                    Notas = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Incidencias", x => x.IdIncidencia);
+                    table.ForeignKey(
+                        name: "FK_Incidencias_Animales_IdAnimal",
+                        column: x => x.IdAnimal,
+                        principalTable: "Animales",
+                        principalColumn: "IdAnimal",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Incidencias_Usuarios_IdUsuario",
+                        column: x => x.IdUsuario,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Incidencias_Usuarios_IdUsuarioMandante",
+                        column: x => x.IdUsuarioMandante,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "Asignaciones",
+                columns: new[] { "IdAsignacion", "Nombre", "UsuarioIdUsuario" },
+                values: new object[,]
+                {
+                    { 1, "Dar de comer", null },
+                    { 2, "Cambiar de habitat", null }
+                });
+
             migrationBuilder.InsertData(
                 table: "Especies",
                 columns: new[] { "IdEspecie", "Icono", "Informacion", "Nombre" },
@@ -35,6 +431,27 @@ namespace ZooBitatApi.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "EstadosAsignacion",
+                columns: new[] { "IdEstadoAsignacion", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "activo" },
+                    { 2, "Realizada" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "IdRol", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Cuidador" },
+                    { 3, "Veterinario" },
+                    { 4, "Visitante" },
+                    { 5, "Inactivo" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "TiposHabitat",
                 columns: new[] { "IdTipoHabitat", "Nombre" },
                 values: new object[,]
@@ -45,75 +462,148 @@ namespace ZooBitatApi.Migrations
                     { 4, "Desierto" },
                     { 5, "Bosque boreal" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Habitats",
+                columns: new[] { "IdHabitat", "IdTipoHabitat", "Nombre" },
+                values: new object[] { 1, 1, "habitat numero 1" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Animales_IdEspecie",
+                table: "Animales",
+                column: "IdEspecie");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Animales_IdEstado",
+                table: "Animales",
+                column: "IdEstado");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Animales_IdHabitat",
+                table: "Animales",
+                column: "IdHabitat");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Asignaciones_UsuarioIdUsuario",
+                table: "Asignaciones",
+                column: "UsuarioIdUsuario");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AsignacionesUsuarios_IdAnimal",
+                table: "AsignacionesUsuarios",
+                column: "IdAnimal");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AsignacionesUsuarios_IdAsignacion",
+                table: "AsignacionesUsuarios",
+                column: "IdAsignacion");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AsignacionesUsuarios_IdEstadoAsignacion",
+                table: "AsignacionesUsuarios",
+                column: "IdEstadoAsignacion");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AsignacionesUsuarios_IdUsuario",
+                table: "AsignacionesUsuarios",
+                column: "IdUsuario");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Habitats_IdTipoHabitat",
+                table: "Habitats",
+                column: "IdTipoHabitat");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HistorialesEstado_IdAnimal",
+                table: "HistorialesEstado",
+                column: "IdAnimal");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HistorialesEstado_IdEstado",
+                table: "HistorialesEstado",
+                column: "IdEstado");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HistorialesHabitat_IdAnimal",
+                table: "HistorialesHabitat",
+                column: "IdAnimal");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incidencias_IdAnimal",
+                table: "Incidencias",
+                column: "IdAnimal");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incidencias_IdUsuario",
+                table: "Incidencias",
+                column: "IdUsuario");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incidencias_IdUsuarioMandante",
+                table: "Incidencias",
+                column: "IdUsuarioMandante");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Noticias_IdUsuario",
+                table: "Noticias",
+                column: "IdUsuario");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_IdRol",
+                table: "Usuarios",
+                column: "IdRol");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "Especies",
-                keyColumn: "IdEspecie",
-                keyValue: 1);
+            migrationBuilder.DropTable(
+                name: "AsignacionesUsuarios");
 
-            migrationBuilder.DeleteData(
-                table: "Especies",
-                keyColumn: "IdEspecie",
-                keyValue: 2);
+            migrationBuilder.DropTable(
+                name: "Comentarios");
 
-            migrationBuilder.DeleteData(
-                table: "Especies",
-                keyColumn: "IdEspecie",
-                keyValue: 3);
+            migrationBuilder.DropTable(
+                name: "EstadosIncidencia");
 
-            migrationBuilder.DeleteData(
-                table: "Especies",
-                keyColumn: "IdEspecie",
-                keyValue: 4);
+            migrationBuilder.DropTable(
+                name: "HistorialesEstado");
 
-            migrationBuilder.DeleteData(
-                table: "Especies",
-                keyColumn: "IdEspecie",
-                keyValue: 5);
+            migrationBuilder.DropTable(
+                name: "HistorialesHabitat");
 
-            migrationBuilder.DeleteData(
-                table: "Estados",
-                keyColumn: "IdEstado",
-                keyValue: 1);
+            migrationBuilder.DropTable(
+                name: "Incidencias");
 
-            migrationBuilder.DeleteData(
-                table: "Estados",
-                keyColumn: "IdEstado",
-                keyValue: 2);
+            migrationBuilder.DropTable(
+                name: "Noticias");
 
-            migrationBuilder.DeleteData(
-                table: "Estados",
-                keyColumn: "IdEstado",
-                keyValue: 3);
+            migrationBuilder.DropTable(
+                name: "Asignaciones");
 
-            migrationBuilder.DeleteData(
-                table: "TiposHabitat",
-                keyColumn: "IdTipoHabitat",
-                keyValue: 1);
+            migrationBuilder.DropTable(
+                name: "EstadosAsignacion");
 
-            migrationBuilder.DeleteData(
-                table: "TiposHabitat",
-                keyColumn: "IdTipoHabitat",
-                keyValue: 2);
+            migrationBuilder.DropTable(
+                name: "Animales");
 
-            migrationBuilder.DeleteData(
-                table: "TiposHabitat",
-                keyColumn: "IdTipoHabitat",
-                keyValue: 3);
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
-            migrationBuilder.DeleteData(
-                table: "TiposHabitat",
-                keyColumn: "IdTipoHabitat",
-                keyValue: 4);
+            migrationBuilder.DropTable(
+                name: "Especies");
 
-            migrationBuilder.DeleteData(
-                table: "TiposHabitat",
-                keyColumn: "IdTipoHabitat",
-                keyValue: 5);
+            migrationBuilder.DropTable(
+                name: "Estados");
+
+            migrationBuilder.DropTable(
+                name: "Habitats");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "TiposHabitat");
         }
     }
 }
