@@ -41,6 +41,9 @@ namespace ZooBitatApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Comentario>> CreateComentario(Comentario comentario)
         {
+            // Establecer el estado como 0
+            comentario.Estado = true;
+
             _context.Comentarios.Add(comentario);
             await _context.SaveChangesAsync();
 
@@ -49,12 +52,16 @@ namespace ZooBitatApi.Controllers
 
         // PUT: api/Comentario/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateComentario(int id, Comentario comentario)
+        public async Task<IActionResult> UpdateComentario(int id)
         {
-            if (id != comentario.IdComentario)
+            var comentario = await _context.Comentarios.FindAsync(id);
+            if (comentario == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            // Cambiar el estado de true a false
+            comentario.Estado = false;
 
             _context.Entry(comentario).State = EntityState.Modified;
 
@@ -76,6 +83,7 @@ namespace ZooBitatApi.Controllers
 
             return NoContent();
         }
+
 
         // DELETE: api/Comentario/5
         [HttpDelete("{id}")]

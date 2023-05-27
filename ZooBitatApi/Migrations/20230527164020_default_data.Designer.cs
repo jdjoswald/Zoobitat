@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooBitatApi;
 
@@ -10,9 +11,11 @@ using ZooBitatApi;
 namespace ZooBitatApi.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230527164020_default_data")]
+    partial class default_data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,14 +245,6 @@ namespace ZooBitatApi.Migrations
                     b.HasIndex("IdTipoHabitat");
 
                     b.ToTable("Habitats");
-
-                    b.HasData(
-                        new
-                        {
-                            IdHabitat = 1,
-                            IdTipoHabitat = 1,
-                            Nombre = "habitat numero 1"
-                        });
                 });
 
             modelBuilder.Entity("ZooBitatApi.Models.HistorialEstado", b =>
