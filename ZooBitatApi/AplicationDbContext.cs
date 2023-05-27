@@ -20,6 +20,7 @@ namespace ZooBitatApi
         public DbSet<Asignacion> Asignaciones { get; set; }
         public DbSet<Asignacion> AsignacionesUsuarios { get; set; }
         public DbSet<Animal> Animales { get; set; }
+        public DbSet<Comentario> Comentarios { get; set; }
 
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options)
         {
@@ -33,7 +34,7 @@ namespace ZooBitatApi
            .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Rol>().HasData(
-                new Rol { IdRol = 1, Nombre = "Administrador del zoologico" },
+                new Rol { IdRol = 1, Nombre = "Admin" },
                 new Rol { IdRol = 2, Nombre = "Cuidador" },
                 new Rol { IdRol = 3, Nombre = "Veterinario" },
                 new Rol { IdRol = 4, Nombre = "Visitante" }
