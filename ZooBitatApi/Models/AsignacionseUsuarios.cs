@@ -6,7 +6,7 @@ namespace ZooBitatApi.Models
     public class AsignacionseUsuarios
     {
         [Key]
-        public int IdAsignacion { get; set; }
+        public int IdAsignacionUsuario { get; set; }
         [Required]
         public int IdUsuario { get; set; }
         [ForeignKey("IdUsuario")]
@@ -20,5 +20,9 @@ namespace ZooBitatApi.Models
         public int IdEstadoAsignacion { get; set; }
         [ForeignKey("IdEstadoAsignacion")]
         public EstadoAsignacion EstadoAsignacion { get; set; }
+        [Required]
+        public int IdAsignacion { get; set; }
+        [ForeignKey("IdAsignacion")]
+        public Asignacion Asignacion { get; set; }
     }
 }

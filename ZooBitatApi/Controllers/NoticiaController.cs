@@ -39,13 +39,25 @@ namespace ZooBitatApi.Controllers
         }
 
         [HttpPost]
+        [EnableCors("CorsPolicy")]
         public async Task<ActionResult<Noticia>> CreateNoticia(Noticia noticia)
         {
+            // Verificar si el usuario especificado existe en la base de datos
+            var usuario = await _context.Usuarios.FindAsync(noticia.IdUsuario);
+            if (usuario == null)
+            {
+                return NotFound("El usuario especificado no existe.");
+            }
+
+            // Asignar el usuario existente a la noticia
+            noticia.Usuario = usuario;
+
             _context.Noticias.Add(noticia);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetNoticia", new { id = noticia.IdNotica }, noticia);
         }
+
 
         [HttpPut("{id}")]
         [EnableCors("CorsPolicy")]

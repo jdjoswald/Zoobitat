@@ -113,6 +113,17 @@ namespace ZooBitatApi.Controllers
                 return NotFound();
             }
 
+            // Obtener el rol con el ID 5
+            var rol = _context.Roles.Find(5);
+
+            if (rol == null)
+            {
+                return NotFound("El rol especificado no existe.");
+            }
+
+            // Asignar el nuevo rol al usuario
+            usuario.Rol = rol;
+
             _context.Usuarios.Remove(usuario);
             _context.SaveChanges();
 
@@ -123,19 +134,26 @@ namespace ZooBitatApi.Controllers
         // POST: api/Usuario/Login
         [HttpPost("Login")]
         [EnableCors("CorsPolicy")]
-        public IActionResult Login(Usuario usuarioLogin)
+        public IActionResult Login(string email, string contrasenna)
         {
-            // Buscar el usuario en la base de datos por nombre de usuario
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioLogin.Email);
+            // Buscar el usuario en la base de datos por email
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
 
             if (usuario == null)
             {
                 // Si el usuario no existe, puedes manejar el error o devolver una respuesta de error
-                return NotFound("Nombre de usuario incorrecto");
+                return NotFound("Email incorrecto");
+            }
+
+            // Verificar si el usuario tiene el rol 5
+            if (usuario.Rol.IdRol == 5)
+            {
+                // Si el usuario tiene el rol 5, devolver una respuesta de error o manejarlo según tus necesidades
+                return Unauthorized("Acceso denegado");
             }
 
             // Verificar la contraseña encriptada
-            if (!VerificarContraseña(usuarioLogin.Contrasenna, usuario.Contrasenna))
+            if (!VerificarContraseña(contrasenna, usuario.Contrasenna))
             {
                 // Si la contraseña no coincide, puedes manejar el error o devolver una respuesta de error
                 return Unauthorized("Contraseña incorrecta");
@@ -144,6 +162,8 @@ namespace ZooBitatApi.Controllers
             // Devolver una respuesta exitosa con los datos del usuario
             return Ok(usuario);
         }
+
+
 
         private bool VerificarContraseña(string contraseña, string contraseñaEncriptada)
         {
