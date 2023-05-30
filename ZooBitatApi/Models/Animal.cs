@@ -26,5 +26,10 @@ namespace ZooBitatApi.Models
         public string Informacion { get; set; }
         [Required]
         public string Imagen { get; set; }
+
+        [Required]
+        public string Sexo { get; set; }
+        [Required]
+        public double peso { get; set; }
     }
 }
