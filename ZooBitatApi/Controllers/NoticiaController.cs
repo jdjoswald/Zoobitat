@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -61,6 +63,7 @@ namespace ZooBitatApi.Controllers
 
         [HttpPut("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> UpdateNoticia(int id, Noticia noticia)
         {
             if (id != noticia.IdNotica)
@@ -91,6 +94,7 @@ namespace ZooBitatApi.Controllers
 
         [HttpDelete("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> DeleteNoticia(int id)
         {
             var noticia = await _context.Noticias.FindAsync(id);

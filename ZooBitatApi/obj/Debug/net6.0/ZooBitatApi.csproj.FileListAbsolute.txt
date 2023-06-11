@@ -8,6 +8,7 @@ C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\ZooBitatApi
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\ExtendableEnums.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\ExtendableEnums.EntityFrameworkCore.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Humanizer.dll
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
@@ -22,6 +23,11 @@ C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.E
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Mono.TextTemplating.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\MySqlConnector.dll
@@ -31,6 +37,7 @@ C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Swashbuckle
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\System.CodeDom.dll
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

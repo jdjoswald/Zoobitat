@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,7 @@ namespace ZooBitatApi.Controllers
         // GET: api/Asignacion
         [HttpGet]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<IEnumerable<Asignacion>>> GetAsignaciones()
         {
             return await _context.Asignaciones.ToListAsync();
@@ -28,6 +31,7 @@ namespace ZooBitatApi.Controllers
         // GET: api/Asignacion/5
         [HttpGet("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<Asignacion>> GetAsignacion(int id)
         {
             var asignacion = await _context.Asignaciones.FindAsync(id);
@@ -43,6 +47,7 @@ namespace ZooBitatApi.Controllers
         // POST: api/Asignacion
         [HttpPost]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<Asignacion>> CreateAsignacion(Asignacion asignacion)
         {
             _context.Asignaciones.Add(asignacion);
@@ -54,6 +59,7 @@ namespace ZooBitatApi.Controllers
         // PUT: api/Asignacion/5
         [HttpPut("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> UpdateAsignacion(int id, Asignacion asignacion)
         {
             if (id != asignacion.IdAsignacion)
@@ -85,6 +91,7 @@ namespace ZooBitatApi.Controllers
         // DELETE: api/Asignacion/5
         [HttpDelete("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> DeleteAsignacion(int id)
         {
             var asignacion = await _context.Asignaciones.FindAsync(id);

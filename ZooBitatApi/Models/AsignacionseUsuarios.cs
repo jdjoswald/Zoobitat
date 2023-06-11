@@ -12,6 +12,10 @@ namespace ZooBitatApi.Models
         [ForeignKey("IdUsuario")]
         public Usuario Usuario { get; set; }
         [Required]
+        public int IdUsuarioMandante { get; set; }
+        [ForeignKey("IdUsuarioMandante")]
+        public Usuario UsuarioMandante { get; set; }
+        [Required]
         public int IdAnimal { get; set; }
         [ForeignKey("IdAnimal")]
         public Animal Animal { get; set; }
