@@ -1,5 +1,7 @@
-﻿using System.Security.Cryptography;
+﻿using System.Data;
+using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +24,7 @@ namespace ZooBitatApi.Controllers
         // GET: api/Usuario
         [HttpGet]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
             var usuarios = _context.Usuarios.Include(h=>h.Rol).ToList();
@@ -32,6 +35,7 @@ namespace ZooBitatApi.Controllers
         // GET: api/Usuario/5
         [HttpGet("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<Usuario>> GetUsuarioById(int id)
         {
             var usuario = await _context.Usuarios.Include(h => h.Rol).FirstOrDefaultAsync(h => h.IdUsuario == id);
@@ -114,6 +118,7 @@ namespace ZooBitatApi.Controllers
 
         [HttpPatch("{id}/IdRol")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public IActionResult UpdateUsuarioIdRol(int id, [FromBody] int idRol)
         {
             var usuario = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
