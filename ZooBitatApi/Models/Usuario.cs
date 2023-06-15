@@ -19,7 +19,7 @@ namespace ZooBitatApi.Models
         [Required]
         public int IdRol { get; set; }
         [ForeignKey("IdRol")]
-        public Rol  Rol { get; set; }
+        public Rol?  Rol { get; set; }
         [JsonIgnore]
         public ICollection<Asignacion> asignaciones { get; set; } = new List<Asignacion>();
 

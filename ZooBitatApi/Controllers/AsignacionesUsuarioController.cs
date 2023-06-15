@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZooBitatApi.Models;
+using System.Security.Claims;
 
 namespace ZooBitatApi.Controllers
 {
@@ -44,6 +45,8 @@ namespace ZooBitatApi.Controllers
 
         // POST: api/AsignacionseUsuarios
         [HttpPost]
+        [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<AsignacionseUsuarios>> CreateAsignacionseUsuario(AsignacionseUsuarios asignacionseUsuario)
         {
             var usuario = await _context.Usuarios.FindAsync(asignacionseUsuario.IdUsuario);
@@ -52,11 +55,30 @@ namespace ZooBitatApi.Controllers
                 return BadRequest("El ID de Usuario es inválido.");
             }
 
-            var usuarioMandante = await _context.Usuarios.FindAsync(asignacionseUsuario.IdUsuarioMandante);
+            // Obtener el ID del usuario mandante desde el token
+            var usuarioMandanteId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(usuarioMandanteId))
+            {
+                return BadRequest("No se pudo obtener el ID del usuario mandante desde el token.");
+            }
+
+            // Verificar si el ID del usuario mandante es válido
+            if (!int.TryParse(usuarioMandanteId, out int usuarioMandanteIdParsed))
+            {
+                return BadRequest("El ID del usuario mandante en el token no es válido.");
+            }
+
+            // Obtener el usuario mandante de la base de datos
+            var usuarioMandante = await _context.Usuarios.FindAsync(usuarioMandanteIdParsed);
             if (usuarioMandante == null)
             {
-                return BadRequest("El ID de UsuarioMandante es inválido.");
+                return BadRequest("El usuario mandante especificado en el token no existe.");
             }
+
+            // Resto del código para verificar y guardar la asignación
+
+            // Asignar el usuario mandante obtenido desde el token
+            
 
             var animal = await _context.Animales.FindAsync(asignacionseUsuario.IdAnimal);
             if (animal == null)
@@ -76,8 +98,10 @@ namespace ZooBitatApi.Controllers
                 return BadRequest("El ID de Asignacion es inválido.");
             }
 
-            asignacionseUsuario.Usuario = usuario;
+            asignacionseUsuario.IdUsuarioMandante = usuarioMandante.IdUsuario;
             asignacionseUsuario.UsuarioMandante = usuarioMandante;
+
+            asignacionseUsuario.Usuario = usuario;
             asignacionseUsuario.Animal = animal;
             asignacionseUsuario.EstadoAsignacion = estadoAsignacion;
             asignacionseUsuario.Asignacion = asignacion;
@@ -200,10 +224,25 @@ namespace ZooBitatApi.Controllers
             return Ok(asignaciones);
         }
         // GET: api/AsignacionseUsuarios/GetByUsuarioAndEstado/{usuarioId}/{estadoId}
-        [HttpGet("GetByUsuarioAndEstado/{usuarioId}/{estadoId}")]
+        [HttpGet("GetByUsuarioAndEstado/{estadoId}")]
         [Authorize(Roles = "1,2,3")]
-        public IActionResult GetByUsuarioAndEstado(int usuarioId, int estadoId)
+        public IActionResult GetByUsuarioAndEstado( int estadoId)
         {
+
+
+            // Obtener el ID del usuario mandante desde el token
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("No se pudo obtener el ID del usuario mandante desde el token.");
+            }
+
+            // Verificar si el ID del usuario mandante es válido
+            if (!int.TryParse(id, out int usuarioId))
+            {
+                return BadRequest("El ID del usuario mandante en el token no es válido.");
+            }
+
             var asignaciones = _context.AsignacionesUsuarios
                 .Where(a => a.IdUsuario == usuarioId && a.IdEstadoAsignacion == estadoId)
                 .ToList();

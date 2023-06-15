@@ -12,7 +12,7 @@ namespace ZooBitatApi.Models
         [Required]
         public int IdAnimal { get; set; }
         [ForeignKey("IdAnimal")]
-        public Animal Animal { get; set; }
+        public Animal? Animal { get; set; }
         public string Notas { get; set; }
     }
 }

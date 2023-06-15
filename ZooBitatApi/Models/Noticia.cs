@@ -17,7 +17,7 @@ namespace ZooBitatApi.Models
         public int IdUsuario { get; set; }
 
         [ForeignKey("IdUsuario")]
-        public Usuario Usuario { get; set; }
+        public Usuario? Usuario { get; set; }
 
         [Required]
         public DateTime Fecha { get; set; }

@@ -10,14 +10,14 @@ namespace ZooBitatApi.Models
         [Required]
         public int IdEstado { get; set; }
         [ForeignKey("IdEstado")]
-        public Estado Estado { get; set; }  
+        public Estado? Estado { get; set; }  
         [Required]
         public DateTime FechaInicio { get; set; }
       
         [Required]
         public int IdAnimal { get; set; }
         [ForeignKey("IdAnimal")]
-        public Animal Animal { get; set; }
+        public Animal? Animal { get; set; }
 
     }
 }
