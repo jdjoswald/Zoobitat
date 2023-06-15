@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +45,7 @@ namespace ZooBitatApi.Controllers
 
         [HttpPost]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<Habitat>> CreateHabitat(Habitat habitat)
         {
            // var tipoHabitat = await _context.TiposHabitat.FindAsync(habitat.IdTipoHabitat);
@@ -70,6 +73,7 @@ namespace ZooBitatApi.Controllers
 
         [HttpPut("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> UpdateHabitat(int id, Habitat habitat)
         {
             if (id != habitat.IdHabitat)
@@ -100,6 +104,7 @@ namespace ZooBitatApi.Controllers
 
         [HttpDelete("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> DeleteHabitat(int id)
         {
             var habitat = await _context.Habitats.FindAsync(id);

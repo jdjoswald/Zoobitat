@@ -12,6 +12,6 @@ namespace ZooBitatApi.Models
         [Required]
         public int IdTipoHabitat { get; set; }
         [ForeignKey("IdTipoHabitat")]
-        public TipoHabitat TipoHabitat { get; set; }
+        public TipoHabitat? TipoHabitat { get; set; }
     }
 }

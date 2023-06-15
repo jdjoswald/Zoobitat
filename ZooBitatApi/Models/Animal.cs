@@ -10,18 +10,18 @@ namespace ZooBitatApi.Models
         [Required]
         public int IdEspecie { get; set; }
         [ForeignKey("IdEspecie")]
-        public Especie Especie { get; set; }
+        public Especie? Especie { get; set; }
         [Required]
         public string Nombre { get; set; }
         [Required]
         public int IdEstado { get; set; }
         [ForeignKey("IdEstado")]
-        public Estado Estado { get; set; }
+        public Estado? Estado { get; set; }
         [Required]
         public DateTime FechaNacimiento { get; set; }
         public int IdHabitat { get; set; }
         [ForeignKey("IdHabitat")]
-        public Habitat Habitat { get; set; }
+        public Habitat? Habitat { get; set; }
         [Required]
         public string Informacion { get; set; }
         [Required]

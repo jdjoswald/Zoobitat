@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZooBitatApi.Models;
@@ -18,6 +20,7 @@ namespace ZooBitatApi.Controllers
 
         // GET: api/Comentario
         [HttpGet]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<IEnumerable<Comentario>>> GetComentarios()
         {
             return await _context.Comentarios.ToListAsync();
@@ -25,6 +28,7 @@ namespace ZooBitatApi.Controllers
 
         // GET: api/Comentario/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "1,3")]
         public async Task<ActionResult<Comentario>> GetComentario(int id)
         {
             var comentario = await _context.Comentarios.FindAsync(id);
@@ -52,6 +56,7 @@ namespace ZooBitatApi.Controllers
 
         // PUT: api/Comentario/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> UpdateComentario(int id)
         {
             var comentario = await _context.Comentarios.FindAsync(id);
@@ -87,6 +92,7 @@ namespace ZooBitatApi.Controllers
 
         // DELETE: api/Comentario/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> DeleteComentario(int id)
         {
             var comentario = await _context.Comentarios.FindAsync(id);
@@ -105,6 +111,8 @@ namespace ZooBitatApi.Controllers
         {
             return _context.Comentarios.Any(c => c.IdComentario == id);
         }
+
+
     }
 }
 

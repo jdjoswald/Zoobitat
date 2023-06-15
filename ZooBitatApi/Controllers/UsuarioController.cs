@@ -1,5 +1,7 @@
-﻿using System.Security.Cryptography;
+﻿using System.Data;
+using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +24,7 @@ namespace ZooBitatApi.Controllers
         // GET: api/Usuario
         [HttpGet]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
             var usuarios = _context.Usuarios.Include(h=>h.Rol).ToList();
@@ -32,9 +35,10 @@ namespace ZooBitatApi.Controllers
         // GET: api/Usuario/5
         [HttpGet("{id}")]
         [EnableCors("CorsPolicy")]
-        public ActionResult<Usuario> GetUsuarioById(int id)
+        [Authorize(Roles = "1,3")]
+        public async Task<ActionResult<Usuario>> GetUsuarioById(int id)
         {
-            var usuario = _context.Usuarios.Include(h=>h.Rol).FirstOrDefaultAsync(h=>h.IdUsuario==id);
+            var usuario = await _context.Usuarios.Include(h => h.Rol).FirstOrDefaultAsync(h => h.IdUsuario == id);
 
             if (usuario == null)
             {
@@ -95,11 +99,44 @@ namespace ZooBitatApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(usuario).State = EntityState.Modified;
+            var usuarioExistente = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
+
+            if (usuarioExistente == null)
+            {
+                return NotFound();
+            }
+
+            usuarioExistente.Nombre = usuario.Nombre;
+            usuarioExistente.Apellido = usuario.Apellido;
+
+            _context.Entry(usuarioExistente).State = EntityState.Modified;
             _context.SaveChanges();
 
             return NoContent();
         }
+
+
+        [HttpPatch("{id}/IdRol")]
+        [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
+        public IActionResult UpdateUsuarioIdRol(int id, [FromBody] int idRol)
+        {
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
+
+            Rol rol= _context.Roles.FirstOrDefault(u => u.IdRol == idRol);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            usuario.IdRol = idRol;
+            usuario.Rol = rol;
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
 
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]
@@ -131,7 +168,7 @@ namespace ZooBitatApi.Controllers
         }
 
 
-        // POST: api/Usuario/Login
+       /*// POST: api/Usuario/Login
         [HttpPost("Login")]
         [EnableCors("CorsPolicy")]
         public IActionResult Login(string email, string contrasenna)
