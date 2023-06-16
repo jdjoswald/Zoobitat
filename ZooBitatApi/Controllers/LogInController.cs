@@ -110,6 +110,46 @@ namespace ZooBitatApi.Controllers
             }
         }
 
+        [HttpGet("rol-token")]
+        public ActionResult<string> ObtenerRolToken()
+        {
+            // Obtener el token del encabezado de autorización
+            var authorizationHeader = Request.Headers["Authorization"].FirstOrDefault();
+            var token = authorizationHeader?.Replace("Bearer ", "");
+
+            // Verificar si se proporcionó un token
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("No se proporcionó un token válido.");
+            }
+
+            try
+            {
+                // Decodificar el token y obtener los claims
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenClaims = tokenHandler.ReadJwtToken(token).Claims;
+
+                // Buscar el claim correspondiente al rol (usando ClaimTypes.Role)
+                var rolClaim = tokenClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+
+                // Verificar si se encontró el claim del rol
+                if (rolClaim != null)
+                {
+                    var rol = rolClaim.Value;
+                    return rol;
+                }
+                else
+                {
+                    return NotFound("No se encontró el claim del rol en el token.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al decodificar el token: {ex.Message}");
+            }
+        }
+
+
 
     }
 }

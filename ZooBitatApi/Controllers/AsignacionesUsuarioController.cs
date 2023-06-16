@@ -75,7 +75,7 @@ namespace ZooBitatApi.Controllers
                 return BadRequest("El usuario mandante especificado en el token no existe.");
             }
 
-            // Resto del código para verificar y guardar la asignación
+         
 
             // Asignar el usuario mandante obtenido desde el token
             
