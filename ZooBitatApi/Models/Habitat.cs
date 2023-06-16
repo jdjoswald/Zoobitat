@@ -9,6 +9,9 @@ namespace ZooBitatApi.Models
         public int IdHabitat { get; set; }
         [Required]
         public string Nombre { get; set; }
+
+        [Required]
+        public string Imagen { get; set; }
         [Required]
         public int IdTipoHabitat { get; set; }
         [ForeignKey("IdTipoHabitat")]

@@ -1,3 +1,10 @@
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.csproj.AssemblyReference.cache
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.AssemblyInfoInputs.cache
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.AssemblyInfo.cs
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.csproj.CoreCompileInputs.cache
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\appsettings.json
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\ZooBitatApi.exe
@@ -41,13 +48,6 @@ C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\System.Iden
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
-C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.csproj.AssemblyReference.cache
-C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.AssemblyInfoInputs.cache
-C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.AssemblyInfo.cs
-C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.csproj.CoreCompileInputs.cache
-C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\ZooBitatApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\laraw\source\repos\ZooBitatApi\ZooBitatApi\obj\Debug\net6.0\scopedcss\bundle\ZooBitatApi.styles.css
