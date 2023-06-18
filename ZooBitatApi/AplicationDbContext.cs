@@ -28,6 +28,8 @@ namespace ZooBitatApi
 
         public DbSet<Galeria> Galerias { get; set; }
 
+        public DbSet<Parte> Partes { get; set; }
+
 
 
 
@@ -50,7 +52,8 @@ namespace ZooBitatApi
                 new Rol { IdRol = 2, Nombre = "Cuidador" },
                 new Rol { IdRol = 3, Nombre = "Veterinario" },
                 new Rol { IdRol = 4, Nombre = "Visitante" },
-                 new Rol { IdRol = 5, Nombre = "Inactivo" }
+                 new Rol { IdRol = 5, Nombre = "Inactivo" },
+                  new Rol { IdRol = 6, Nombre = "Eliminado" }
             );
 
 
@@ -115,7 +118,8 @@ namespace ZooBitatApi
                 IdHabitat = 1,
                 IdTipoHabitat = 1,
                 Imagen="ll",
-                Nombre = "habitat numero 1"
+                Nombre = "habitat numero 1",
+                Descripcion= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ex quis neque eleifend hendrerit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec cursus a dolor vel aliquet. Donec rhoncus ornare lorem id ullamcorper. Donec viverra ligula dui, vel commodo dolor faucibus ultrices. Nunc eu pellentesque nisi, nec scelerisque lectus. Praesent at eleifend nibh. Sed pellentesque lectus tellus, nec mollis tortor mollis eu. Nam imperdiet eros ac varius ultrices. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eleifend est porttitor mi consectetur tempus. Donec nec eros sed nibh facilisis egestas. Morbi non accumsan sapien, sed bibendum quam. Cras in sapien a elit aliquet sollicitudin in id augue."
             }
 
         );

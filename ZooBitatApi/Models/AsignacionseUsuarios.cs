@@ -28,5 +28,7 @@ namespace ZooBitatApi.Models
         public int IdAsignacion { get; set; }
         [ForeignKey("IdAsignacion")]
         public Asignacion? Asignacion { get; set; }
+        [Required]
+        public string Notas { get; set; }
     }
 }

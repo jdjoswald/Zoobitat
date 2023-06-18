@@ -27,10 +27,52 @@ namespace ZooBitatApi.Controllers
         [Authorize(Roles = "1,3")]
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
-            var usuarios = _context.Usuarios.Include(h=>h.Rol).ToList();
+            var usuarios = _context.Usuarios
+        .Include(h => h.Rol)
+        .Where(u => u.IdRol != 5 && u.IdRol != 6)
+        .ToList();
 
             return Ok(usuarios);
         }
+
+        [HttpGet("usuarios/rol5")]
+        [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
+        public ActionResult<IEnumerable<Usuario>> GetUsuariosRol5()
+        {
+            var usuariosRol5 = _context.Usuarios
+                .Include(h => h.Rol)
+                .Where(u => u.IdRol == 5)
+                .ToList();
+
+            return Ok(usuariosRol5);
+        }
+
+        [HttpGet("usuarios-por-rol/{idRol}")]
+        [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
+        public ActionResult<IEnumerable<Usuario>> GetUsuariosPorRol(int idRol)
+        {
+            var usuarios = _context.Usuarios
+                .Where(u => u.IdRol == idRol)
+                .ToList();
+
+            return Ok(usuarios);
+        }
+
+
+        [HttpGet("usuariosempl")]
+        [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
+        public ActionResult<IEnumerable<Usuario>> GetUsuariosEmpleado()
+        {
+            var usuarios = _context.Usuarios
+                .Where(u => u.IdRol == 3 || u.IdRol ==2)
+                .ToList();
+
+            return Ok(usuarios);
+        }
+
 
         // GET: api/Usuario/5
         [HttpGet("{id}")]
@@ -53,6 +95,15 @@ namespace ZooBitatApi.Controllers
         [EnableCors("CorsPolicy")]
         public ActionResult<Usuario> CreateUsuario(Usuario usuario)
         {
+            // Verificar si el correo ya existe en la base de datos
+            var usuarioExistente = _context.Usuarios.FirstOrDefault(u => u.Email == usuario.Email);
+
+            if (usuarioExistente != null)
+            {
+                // Si el usuario con el mismo correo ya existe, puedes manejar el error o devolver una respuesta de error
+                return Conflict("El correo especificado ya está en uso.");
+            }
+
             // Obtener el rol correspondiente de la base de datos
             var rol = _context.Roles.FirstOrDefault(r => r.IdRol == usuario.IdRol);
 
@@ -116,17 +167,25 @@ namespace ZooBitatApi.Controllers
         }
 
 
-        [HttpPatch("{id}/IdRol")]
+        [HttpPatch("{id}/{idRol}")]
         [EnableCors("CorsPolicy")]
         [Authorize(Roles = "1,3")]
-        public IActionResult UpdateUsuarioIdRol(int id, [FromBody] int idRol)
+        public IActionResult UpdateUsuarioIdRol(int id, int idRol)
+
         {
+           
             var usuario = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
 
-            Rol rol= _context.Roles.FirstOrDefault(u => u.IdRol == idRol);
             if (usuario == null)
             {
                 return NotFound();
+            }
+
+            var rol = _context.Roles.FirstOrDefault(r => r.IdRol == idRol);
+
+            if (rol == null)
+            {
+                return NotFound("El rol especificado no existe.");
             }
 
             usuario.IdRol = idRol;
@@ -138,9 +197,11 @@ namespace ZooBitatApi.Controllers
         }
 
 
+
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]
         [EnableCors("CorsPolicy")]
+        [Authorize(Roles = "1,3")]
         public IActionResult DeleteUsuario(int id)
         {
             var usuario = _context.Usuarios.Find(id);
@@ -151,7 +212,7 @@ namespace ZooBitatApi.Controllers
             }
 
             // Obtener el rol con el ID 5
-            var rol = _context.Roles.Find(5);
+            var rol = _context.Roles.Find(6);
 
             if (rol == null)
             {
@@ -159,9 +220,11 @@ namespace ZooBitatApi.Controllers
             }
 
             // Asignar el nuevo rol al usuario
+            usuario.IdRol = rol.IdRol;
             usuario.Rol = rol;
+            
 
-            _context.Usuarios.Remove(usuario);
+
             _context.SaveChanges();
 
             return NoContent();
