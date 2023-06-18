@@ -33,7 +33,14 @@ namespace ZooBitatApi.Controllers
         [EnableCors("CorsPolicy")]
         public async Task<ActionResult<AsignacionseUsuarios>> GetAsignacionseUsuario(int id)
         {
-            var asignacionseUsuario = await _context.AsignacionesUsuarios.FindAsync(id);
+            var asignacionseUsuario = await _context.AsignacionesUsuarios
+                .Include(a => a.Usuario)
+                .Include(a => a.UsuarioMandante)
+                .Include(a => a.Animal)
+                .Include(a => a.Animal.Habitat)
+                .Include(a => a.EstadoAsignacion)
+                .Include(a => a.Asignacion)
+                .FirstOrDefaultAsync(a => a.IdAsignacionUsuario == id);
 
             if (asignacionseUsuario == null)
             {
@@ -42,6 +49,7 @@ namespace ZooBitatApi.Controllers
 
             return asignacionseUsuario;
         }
+
 
         // POST: api/AsignacionseUsuarios
         [HttpPost]
@@ -212,7 +220,13 @@ namespace ZooBitatApi.Controllers
         [Authorize(Roles = "1,3")]
         public IActionResult GetByEstadoId(int estadoId)
         {
+
             var asignaciones = _context.AsignacionesUsuarios
+                .Include(a => a.Usuario)
+                .Include(a => a.UsuarioMandante)
+                .Include(a => a.Animal)
+                .Include(a => a.EstadoAsignacion)
+                .Include(a => a.Asignacion)
                 .Where(a => a.IdEstadoAsignacion == estadoId)
                 .ToList();
 
@@ -226,10 +240,8 @@ namespace ZooBitatApi.Controllers
         // GET: api/AsignacionseUsuarios/GetByUsuarioAndEstado/{usuarioId}/{estadoId}
         [HttpGet("GetByUsuarioAndEstado/{estadoId}")]
         [Authorize(Roles = "1,2,3")]
-        public IActionResult GetByUsuarioAndEstado( int estadoId)
+        public IActionResult GetByUsuarioAndEstado(int estadoId)
         {
-
-
             // Obtener el ID del usuario mandante desde el token
             var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(id))
@@ -244,6 +256,10 @@ namespace ZooBitatApi.Controllers
             }
 
             var asignaciones = _context.AsignacionesUsuarios
+                .Include(a => a.UsuarioMandante)
+                .Include(a => a.Animal)
+                .Include(a => a.EstadoAsignacion)
+                .Include(a => a.Asignacion)
                 .Where(a => a.IdUsuario == usuarioId && a.IdEstadoAsignacion == estadoId)
                 .ToList();
 
@@ -254,6 +270,7 @@ namespace ZooBitatApi.Controllers
 
             return Ok(asignaciones);
         }
+
 
 
     }

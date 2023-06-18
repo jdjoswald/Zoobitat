@@ -107,6 +107,38 @@ namespace ZooBitatApi.Controllers
 
             _context.Entry(animal).State = EntityState.Modified;
 
+            // Verificar si la especie existe
+            var especie = await _context.Especies.FindAsync(animal.IdEspecie);
+            if (especie == null)
+            {
+                // La especie no existe, devolver un error o realizar alguna acción apropiada
+                return NotFound("La especie especificada no existe.");
+            }
+
+            // Verificar si el estado existe
+            var estado = await _context.Estados.FindAsync(animal.IdEstado);
+            if (estado == null)
+            {
+                // El estado no existe, devolver un error o realizar alguna acción apropiada
+                return NotFound("El estado especificado no existe.");
+            }
+
+            // Verificar si el hábitat existe
+            var habitat = await _context.Habitats.FindAsync(animal.IdHabitat);
+            if (habitat == null)
+            {
+                // El hábitat no existe, devolver un error o realizar alguna acción apropiada
+                return NotFound("El hábitat especificado no existe.");
+            }
+
+            // Verificar si el tipo de hábitat existe
+
+
+            // Asignar los objetos relacionados al animal
+            animal.Especie = especie;
+            animal.Estado = estado;
+            animal.Habitat = habitat;
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -122,6 +154,7 @@ namespace ZooBitatApi.Controllers
                     throw;
                 }
             }
+
 
             return NoContent();
         }

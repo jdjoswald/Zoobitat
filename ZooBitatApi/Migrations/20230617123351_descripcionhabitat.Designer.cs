@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooBitatApi;
 
@@ -10,9 +11,11 @@ using ZooBitatApi;
 namespace ZooBitatApi.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230617123351_descripcionhabitat")]
+    partial class descripcionhabitat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,10 +161,6 @@ namespace ZooBitatApi.Migrations
 
                     b.Property<int>("IdUsuarioMandante")
                         .HasColumnType("int");
-
-                    b.Property<string>("Notas")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("IdAsignacionUsuario");
 
@@ -524,33 +523,6 @@ namespace ZooBitatApi.Migrations
                     b.ToTable("Noticias");
                 });
 
-            modelBuilder.Entity("ZooBitatApi.Models.Parte", b =>
-                {
-                    b.Property<int>("IdParte")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdAnimal")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Observaciones")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("estado")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdParte");
-
-                    b.HasIndex("IdAnimal");
-
-                    b.ToTable("Partes");
-                });
-
             modelBuilder.Entity("ZooBitatApi.Models.Rol", b =>
                 {
                     b.Property<int>("IdRol")
@@ -590,11 +562,6 @@ namespace ZooBitatApi.Migrations
                         {
                             IdRol = 5,
                             Nombre = "Inactivo"
-                        },
-                        new
-                        {
-                            IdRol = 6,
-                            Nombre = "Eliminado"
                         });
                 });
 
@@ -888,17 +855,6 @@ namespace ZooBitatApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("ZooBitatApi.Models.Parte", b =>
-                {
-                    b.HasOne("ZooBitatApi.Models.Animal", "Animal")
-                        .WithMany()
-                        .HasForeignKey("IdAnimal")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Animal");
                 });
 
             modelBuilder.Entity("ZooBitatApi.Models.Usuario", b =>
