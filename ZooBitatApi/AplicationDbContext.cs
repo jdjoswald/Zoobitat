@@ -30,7 +30,7 @@ namespace ZooBitatApi
 
         public DbSet<Parte> Partes { get; set; }
 
-
+        public DbSet<Log> Logs { get; set; }
 
 
 
