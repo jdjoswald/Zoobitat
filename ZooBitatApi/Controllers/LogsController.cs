@@ -19,6 +19,8 @@ namespace ZooBitatApi.Controllers
         [HttpPost]
         public IActionResult CreateLog(Log log)
         {
+
+            log.Timestamp = DateTime.Now;
             // Validar los datos del log si es necesario
             if (!ModelState.IsValid)
             {
