@@ -279,7 +279,17 @@ namespace ZooBitatApi
                     Apellido = "cuidador",
                     IdRol = 2,
                     Rol = null
-                }
+                },
+                 new Usuario
+                 {
+                     IdUsuario = 4,
+                     Email = "nolog@nolog.com",
+                     Contrasenna = "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
+                     Nombre = "nolog",
+                     Apellido = "nolog",
+                     IdRol = 4,
+                     Rol = null
+                 }
 
 
            );
