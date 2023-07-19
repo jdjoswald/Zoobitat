@@ -43,7 +43,7 @@ namespace ZooBitatApi.Controllers
             }
 
             // Verificar si el usuario tiene el rol 5
-            if (usuario.IdRol == 5)
+            if (usuario.IdRol == 5|| usuario.IdRol == 6)
             {
                 // Si el usuario tiene el rol 5, devolver una respuesta de error o manejarlo según tus necesidades
                 return Unauthorized("Acceso denegado");
